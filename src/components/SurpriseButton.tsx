@@ -1,11 +1,32 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
 export default function SurpriseButton() {
+  const [targetReached, setTargetReached] = useState(false);
+
+  useEffect(() => {
+    const checkTime = () => {
+      const targetDate = new Date("2025-12-25T00:00:00").getTime();
+      const now = new Date().getTime();
+      if (now >= targetDate) {
+        setTargetReached(true);
+      }
+    };
+
+    // Check immediately
+    checkTime();
+
+    // Check every second
+    const interval = setInterval(checkTime, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <Link href="/countdown">
+    <Link href={targetReached ? "/surprise" : "/countdown"}>
       <motion.button
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
