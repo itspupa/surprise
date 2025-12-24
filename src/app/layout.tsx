@@ -1,5 +1,18 @@
 import type { Metadata } from "next";
+import { Poppins, Playfair_Display } from "next/font/google";
 import "./globals.css";
+
+const poppins = Poppins({
+  weight: ["400", "600", "700", "800", "900"],
+  subsets: ["latin"],
+  variable: "--font-poppins",
+});
+
+const playfair = Playfair_Display({
+  weight: ["400", "700", "900"],
+  subsets: ["latin"],
+  variable: "--font-playfair",
+});
 
 export const metadata: Metadata = {
   title: "Surprise",
@@ -13,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={`${poppins.variable} ${playfair.variable}`}>{children}</body>
     </html>
   );
 }
